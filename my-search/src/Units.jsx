@@ -3,9 +3,7 @@ import React from 'react';
 
 
 function Units(props) {
-    if(Array.isArray(props.unit) || props.unit.name === undefined){
-        return null
-    }
+    
     return  (
         <div className="ui three column stackable grid">
         <div className="column">

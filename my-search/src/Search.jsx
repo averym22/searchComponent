@@ -16,7 +16,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div className="ui segment">
+            <div className="ui huge segment">
                 <form className="ui form" onSubmit={this.onFormSubmit}>
                     <div ClassName="field">
                         <input 
