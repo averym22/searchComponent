@@ -5,12 +5,14 @@ import Search from './Search';
 import Header from './Header';
 import Units from './Units';
 import Unitinput from './UnitInput'
+import Loader from './Loader'
 
 
 class App extends React.Component {
   state = {
     units: '',
-    unitError: ''
+    unitError: '',
+    timeOut: false
   }
 
 onSearchSubmit = async (term) => {
@@ -26,17 +28,32 @@ onSearchSubmit = async (term) => {
       this.setState({unitsError : ''})
       this.setState({units : response.data[0]})
     }  
+
+    this.setState({timeOut:false})
 }
 
-onUnitSubmit = () => {
+onUnitSubmit = (name, location, size) => {
   axios.post('http://localhost:3010/units/', {
-            name: this.state.name,
-            location : this.state.location,
-            size : this.state.size
+            name: name,
+            location : location,
+            size : size
         })
         .then((response) => console.log(response))
         .catch((error) => console.log(error))
 
+        this.dataLoader(name)
+        this.setState({timeOut:true})
+
+}
+
+dataLoader = (name) => {
+  setTimeout(() => {
+    this.onSearchSubmit(name)
+    
+  }, 3000);
+
+  
+    
 
 }
   
@@ -44,9 +61,11 @@ render() {
   return (
     <div  className="ui container" style={{marginTop : '10px' }}>
       <Header />
-      <Search onSubmit={this.onSearchSubmit}/>
+      {this.state.unitsError === 'error' ? null :<Search onSubmit={this.onSearchSubmit}/>}
       {this.state.units === '' || this.state.unitsError === 'error' ? null : <Units unit={this.state.units} />}
-      {this.state.unitsError === 'error' ? <Unitinput /> : null}
+      {this.state.timeOut === true ? <Loader /> : null}
+      {this.state.unitsError === 'error' ? <Unitinput onSubmit={this.onUnitSubmit}/> : null}
+      
      
     </div>
     );

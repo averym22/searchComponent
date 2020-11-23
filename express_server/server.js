@@ -16,9 +16,11 @@ app.get('/units', db.getUnits)
 
 app.get('/units/:name', db.getUnitByName)
 
+app.post('/units', db.addUnit)
 
 
 
 
 
-app.listen(port, () => console.log(`Example app listening on port port!`))
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))

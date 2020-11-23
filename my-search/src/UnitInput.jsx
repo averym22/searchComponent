@@ -10,14 +10,14 @@ class UnitInput extends Component {
 
 
     onUnitSubmit = () => {
-        axios.post('http://localhost:3010/units/', {
-            name: this.state.name,
-            location : this.state.location,
-            size : this.state.size
-        })
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error))
-
+        // axios.post('http://localhost:3010/units/', {
+        //     name: this.state.name,
+        //     location : this.state.location,
+        //     size : this.state.size
+        // })
+        // .then((response) => console.log(response))
+        // .catch((error) => console.log(error))
+        this.props.onSubmit(this.state.name, this.state.location, this.state.size)
         this.setState({name: '', location: '', size: ''})
     }
     
@@ -25,7 +25,7 @@ class UnitInput extends Component {
     render() {
         return (
             <div className="ui big form">
-              <div className="dataUpdate">Unit Not Found Please Add To database</div>
+              <div className="dataUpdate">Unit Not Found Please Add To Database</div>
             <div className="three fields">
               <div className="field">
                 <label>Unit Name</label>
@@ -44,7 +44,7 @@ class UnitInput extends Component {
                 onChange={(e) => this.setState({size: e.target.value})}/>
               </div>
             </div>
-            <div className="ui submit button" onClick={this.onSubmit}>Submit</div>
+            <div className="ui submit button" onClick={this.onUnitSubmit}>Submit</div>
           </div>
         );
     }
