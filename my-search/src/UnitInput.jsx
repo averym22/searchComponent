@@ -40,7 +40,7 @@ class UnitInput extends Component {
               </div>
               <div className="field">
                 <label>Size</label>
-                <input placeholder="ex.. 2000" type="text" value={this.state.size}
+                <input placeholder="ex.. 2000" type="number" value={this.state.size}
                 onChange={(e) => this.setState({size: e.target.value})}/>
               </div>
             </div>

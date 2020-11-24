@@ -18,7 +18,7 @@ class App extends React.Component {
 onSearchSubmit = async (term) => {
 
   const response = await axios.get(`http://localhost:3010/units/${term}` , {
-    params: {name: term}
+    
   })
      console.log(response.data[0])
     if (response.data[0] === undefined) {
@@ -38,25 +38,20 @@ onUnitSubmit = (name, location, size) => {
             location : location,
             size : size
         })
-        .then((response) => console.log(response))
+        .then((response) => {
+          this.onSearchSubmit(response.data)
+          })
         .catch((error) => console.log(error))
-
-        this.dataLoader(name)
         this.setState({timeOut:true})
 
 }
 
-dataLoader = (name) => {
-  setTimeout(() => {
-    this.onSearchSubmit(name)
-    
-  }, 3000);
+
 
   
     
 
-}
-  
+
 render() {
   return (
     <div  className="ui container" style={{marginTop : '10px' }}>
@@ -65,8 +60,6 @@ render() {
       {this.state.units === '' || this.state.unitsError === 'error' ? null : <Units unit={this.state.units} />}
       {this.state.timeOut === true ? <Loader /> : null}
       {this.state.unitsError === 'error' ? <Unitinput onSubmit={this.onUnitSubmit}/> : null}
-      
-     
     </div>
     );
   }

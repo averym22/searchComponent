@@ -18,7 +18,7 @@ class Search extends Component {
         return (
             <div className="ui huge segment">
                 <form className="ui form" onSubmit={this.onFormSubmit}>
-                    <div ClassName="field">
+                    <div className="field">
                         <input 
                             onChange={(e) => this.setState({searchInput: e.target.value})} 
                             value={this.state.searchInput} 
