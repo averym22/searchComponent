@@ -3,7 +3,7 @@ const { response } = require('express')
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'me',
-    host: 'db',
+    host: 'localhost',
     password: 'ambria26',
     database: 'units',
     port: 5432,
@@ -32,11 +32,11 @@ const getUnitByName = ((req, res) => {
 
 const addUnit = (req, res) => {
     const {name, location, size } = req.body
-    pool.query('INSERT INTO units(name, location, size ) VALUES ($1, $2, $3)', [name, location, size], (error, results) => {
+    pool.query('INSERT INTO units(name, location, size ) VALUES ($1, $2, $3) RETURNING *', [name, location, size], (error, result) => {
         if (error) {
             throw error
         }
-        res.status(201).send(`Unit with ID ${results.id}`)
+        res.status(201).send(name)
     })
 }
 
